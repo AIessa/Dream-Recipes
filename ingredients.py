@@ -99,18 +99,14 @@ def find_nearest(key_array, n):
 
 
 #get ingredients for keywords:
-model = fasttext.load_model('data/model.bin')
+def get_ingredients(keywords):
+    model = fasttext.load_model('data/model.bin')
+    number_each = int(18/len(keywords))
 
-keywords = ['awake']
-number_each = int(10/len(keywords))
-result = []
-for word in keywords:
-    arr = model.get_word_vector(word)
-    nearest = find_nearest(arr,number_each)
-    result = result + nearest
-    print(word + ' : ')
-    print(nearest)
+    result = []
+    for word in keywords:
+        arr = model.get_word_vector(word)
+        nearest = find_nearest(arr,number_each)
+        result = result + nearest
 
-
-print('\nIngredient list:')
-print(result)
+    return(result)

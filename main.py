@@ -4,8 +4,14 @@
 import sys
 import os
 import time
+import random
+from nltk import word_tokenize
+from nltk.corpus import stopwords
+import string
 #import other scripts for ingredient retrieval & recipe creation
 #ingredients.py + recipe.py
+import ingredients
+import recipe
 
 
 #___________________________________________________________________________
@@ -49,7 +55,7 @@ def remedy():
     time.sleep(1)
     print('Well, let me have a look. I am sure I had the right book here just a minute ago...\n')
     time.sleep(1)
-    specify_ingredients(type)
+    specify_ingredients(type,remedy)
 
 def poison():
     type = 'poison'
@@ -62,7 +68,7 @@ def poison():
     time.sleep(1)
     print('Well, let me have a look. \nYou are really making me go to THAT part of my library, hm?\n')
     time.sleep(1)
-    specify_ingredients(type)
+    specify_ingredients(type,poison)
 
 def superpower():
     type = 'superpower'
@@ -75,78 +81,94 @@ def superpower():
     time.sleep(1)
     print('Well, let me have a look. I will find a good recipe for you...\n')
     time.sleep(1)
-    specify_ingredients(type)
+    specify_ingredients(type,superpower)
 
 
 #
 #
 #specifying ingredients if any
-def specify_ingredients(type):
-    yes_no = input('Oh yes, did you want to include any specific ingredients?\n')
-    extra_ingredients = 'none'
-    if yes_no == 'yes':
+def specify_ingredients(type, effect):
+    yes_no = input('Oh yes, did you want to include any specific ingredient?\n')
+    extra_ingredient = 'none'
+    if 'yes' in yes_no or 'yep' in yes_no or 'ok' in yes_no:
         os.system('clear')
         time.sleep(1)
-        ingredients = input('Aha, which ones?\n')
+        ingredients = input('Aha, which one?\n')
         os.system('clear')
         time.sleep(1)
         print('... I... see. Very well. I will do my best. Will be right back!\n\n')
-        extra_ingredients = ingredients
-        get_ingredients(type, extra_ingredients)
-    elif yes_no == 'no':
+        extra_ingredient = ingredients
+        compile_ingredients(type, effect, extra_ingredient)
+    elif 'no' in yes_no or 'nah' in yes_no or 'nope' in yes_no:
         os.system('clear')
         time.sleep(1)
         print('ok, I will be right back!\n\n')
-        get_ingredients(type, extra_ingredients)
+        extra_ingredient = 'none'
+        compile_ingredients(type, effect, extra_ingredient)
     else:
         os.system('clear')
         time.sleep(1)
         print('Let me see what I can do with that information... I will be right back!\n\n')
-        extra_ingredients = yes_no
-        get_ingredients(type, extra_ingredients)
+        extra_ingredient = yes_no
+        compile_ingredients(type, effect, extra_ingredient)
 
 
 #
 #
-#give user chance to specify ingredients, function calls 'make_recipe'!
-def get_ingredients(type, extra_ingredients):
+#give user chance to specify ingredients, function automatically triggers recipe.py!
+def compile_ingredients(type, effect, extra_ingredient):
     time.sleep(2)
     os.system('clear')
     print('[rustling noises]')
     time.sleep(2)
+
+    #We want the ingredients to be related to the type of recipe and the effect
+    keywords = []
+    #first choose a type related keyword
+    if type == "poison":
+        keywords.append(random.choice(['venom','poison','toxin']))
+    elif type == "remedy":
+        keywords.append(random.choice(['treatment','cure','medicine','drug']))
+    else:
+        keywords.append(random.choice(['power','super','ability','improvement','boost','']))
+    #now remove stopwords from effect
+    remove = stopwords.words('english') + list(string.punctuation)
+    effect_tok = [i for i in word_tokenize(effect.lower()) if i not in remove]
+    keywords = keywords + effect_tok
+    #
+    print(keywords)
+    time.sleep(2)
+    #
+
     os.system('clear')
     print('[cursing]')
-    time.sleep(1)
+    time.sleep(2)
     os.system('clear')
-    print('AHA! Found it!\n')
-    time.sleep(3)
+
+    #Retrieve extra ingredients and sort them into liquid and solid
+    ingredient_list = [ing for (ing,num) in ingredients.get_ingredients(keywords)]
+    #sort liquid and solid
+    liquids = open('data/liquids.txt').read().split('\n')[:-1]
+    choice_liq = list(set([ing for ing in ingredient_list if (ing in liquids)]))
+    choice_sol = list(set([ing for ing in ingredient_list if not(ing in liquids)]))
+    #there is a chance that not enough liquids have been found, so quick fix:
+    if len(choice_liq)<2:
+        choice_liq = choice_liq + ['aether','toothpaste']
+    if len(choice_sol)<2:
+        choice_sol = choice_sol + ['bread','doll eyes']
+    time.sleep(2)
     #
-    recipe = make_recipe(type, extra_ingredients)
-    #
-    if extra_ingredients != 'none':
-        print('A '+ type +' that contains '+extra_ingredients+'!\n\n')
 
+    print('\nAHA! Found it! Here it is...\n')
+    time.sleep(1)
+    print('\n\n*********************\n')
 
-#
-#
-#actually compiling appropriate recipe based on type & extra_ingredients (check for 'none')
-#uses external functions
-def make_recipe(type, extra_ingredients):
-    recipe = []
-
-    #(2) get ingredients: from dataset
-    #separately: train word vectors
-    #import word vec categories to retrieve similar words from prompt
-    # call ingredients.py
-
-    #(3) CFG
-    #figure out how to define grammar from tracery
-    #variable for ingredient list
-    # call recipe.py
-
-    return recipe
-
-
+    #call generate recipe function from recipe.py
+    if extra_ingredient != 'none':
+        print('A recipe for a '+ type +' that contains '+extra_ingredient+'!\n\n')
+        recipe.generate_recipe([type],[effect], choice_sol, choice_liq, [extra_ingredient])
+    else:
+        recipe.generate_recipe([type],[effect], choice_sol, choice_liq, ['weirdly solid ice cream','the thing under your bed','socks','wool of a young sheep'])
 
 
 
@@ -155,8 +177,10 @@ def make_recipe(type, extra_ingredients):
 #___________________________________________________________________________
 #RUN MAIN <3
 if __name__ == "__main__":
+    os.system('clear')
     print('\n\n\nWelcome to my store! Here you can get a recipe to make any dream come true.')
     time.sleep(1)
     print('\nTell me, what are you looking for today? \n\n ------------')
     time.sleep(1)
     prompt_and_react_1()
+    print('\n*********************\n\nWell, hope this helps! Bye bye.')
