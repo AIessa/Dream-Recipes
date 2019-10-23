@@ -168,7 +168,8 @@ def compile_ingredients(type, effect, extra_ingredient):
         print('A recipe for a '+ type +' that contains '+extra_ingredient+'!\n\n')
         recipe.generate_recipe([type],[effect], choice_sol, choice_liq, [extra_ingredient])
     else:
-        recipe.generate_recipe([type],[effect], choice_sol, choice_liq, ['weirdly solid ice cream','the thing under your bed','socks','wool of a young sheep'])
+        main_ing = [random.choice(['weirdly solid ice cream','the thing under your bed','socks','wool of a young sheep'])]
+        recipe.generate_recipe([type],[effect], choice_sol, choice_liq, main_ing)
 
 
 
