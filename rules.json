@@ -1,11 +1,12 @@
 {
 
-	"origin": ["#[mySub:#substance#][myRec:#recipeType#]title# \n\nWelcome to Dream Recipes. #[recDesc:#recSentence#] intro# Happy cooking! \n\nYou will need:\n#squant# #mainIngr# \n#lquant.capitalize# of #liquid#\n#crazyIngred.capitalize# \n#lquant.capitalize# of #liquid# \n#solid.capitalize# for garnish \nA medium-sized cauldron \n\nMethods\n1. Take #squant# #mainIngr#, and shred into #solAdj# pieces using a couple of forks. \n2. Heat the cauldron over a flame, and add #lquant# of #liquid#. Add #squant# of #solAdj# #solid#, and #lquant# of #crazyIngred# to the mix.\n3. Once the pot starts to boil, add the #mainIngr#. Fry for 5 mins until crisp.\n4. Stir the concoction until it reaches a #glowing#, #color#...now add #lquant# of #liquid#. We'll see it #glowing#, #color#...well, more of #color#ish #color#. \n5. Cook for 15 mins to soak the #mainIngr# in the broth. You might need to add an extra ladleful of #liquid# to ensure the recipe is #totally# potent. \n\n#concl# It won't be long until the effect takes place. Until then, goodnight, dear reader. And sweet dreams."],
+	"effectVerb":["conjure", "reveal", "repel", "lift", "mend", "transform", "increase"],
+	"effect":["aging drinker temporarily", "causing a powerful infatuation within the drinker", "increasing one's brain power", "healing bruises in an hour", "causing the drinker to become infatuated with the giver of the potion"],
 
-	"intro":["If you follow the steps of your chosen recipe, it will achieve the desired effect. The best time to administer this recipe is when #beingWith# the #natureNoun#. "],
-	"concl":["Our tried-and-true formula is sure to be a keeper. Simple ingredients, easy directions, and plenty of #concept# and #concept# make the recipe more #evaluationAdjBare# than ever. Best of all, it's totally customizable—add your favorite nutritious mix-ins such as fresh #crazyIngred#, sliced #substance#, or a dollop of #substance#. This was a simple recipe, one that you can try with your own #relative#, #youKnow#, #someday#. If not, #vagueReaction#."],
-	"lquant":["a dash","1 teaspoon","4 tablespoons", "1/2 cup", "2 cups", "7 drops"],
-	"squant":["1 whole", "1 handful of", "2 kg of", "10 lbs of"],
+	"intro":["If you follow the steps of your chosen #myRec#, it will achieve the desired effect of #recDesc#. The best time to administer this #myRec# is when #beingWith# the #natureNoun#. "],
+	"concl":["Our tried-and-true formula is sure to be a keeper. Simple ingredients, easy directions, and plenty of #concept# and #concept# make the #myRec# more #evaluationAdjBare# than ever. Best of all, it's totally customizable—add your favorite nutritious mix-ins such as fresh #crazyIngred#, sliced #substance#, or a dollop of #substance#. This was a simple recipe, one that you can try with your own #relative#, #youKnow#, #someday#. If not, #vagueReaction#."],
+	"lquant":["a dash","1 teaspoon","1 handful", "4 tablespoons", "1/2 cup", "2 cups", "7 drops"],
+	"squant":["1 whole", "1 portion", "2 kg", "10 lbs"],
 	"solAdj": ["boneless", "skinless", "bite-sized", "minced", "shredded","finely choppped", "powdered"],
 	"bodyPart":["eyes", "tail", "liver", "brains", "spleen", "breast"],
 	"crazyIngred":["#animal#'s #bodyPart#"],
@@ -15,14 +16,14 @@
 	"themeNoun":["the future", "love", "drinking", "space travel", "the railroad", "your childhood", "summertime", "the ocean", "wanderlust", "war", "divorce", "nature", "pain", "hope", "a home", "a marriage", "family", "death"],
 	"theme":["#themeNoun# #themeAdj#"],
 	"foo":["#never# trust a #concreteNoun#. You can trust a #concreteNoun#, #maybe#", "I #verb#, therefore I am", "it's #concreteNoun.s# all the way down", "#concept# is the new #concept#", "the only good #concreteNoun# is a dead #concreteNoun#"],
-
+	
 	"react":["shake", "moan", "cry", "scream", "wail", "rejoice", "dance", "cower", "howl"],
-	"color":["orange", "blue", "white", "black", "grey", "purple", "indigo"],
+	"color":["orange", "blue", "white", "black", "grey", "purple", "indigo", "green", "magenta", "brown"],
 	"animal":["goat", "spider", "raven", "crow", "scorpion", "coyote", "eagle", "owl", "lizard", "deer", "pig", "frog", "unicorn"],
 	"concept":["#substance#", "#emotion#", "darkness", "love", "childhood", "time", "loss", "victory", "memory", "art", "thought", "belief", "life", "death", "caring"],
 	"transitiveEmotion":["fear", "regret", "long for", "love", "distrust", "trust", "envy", "care for"],
 	"sense":["feel", "hear", "see", "know"],
-	"natureNoun":["ocean", "mountain", "forest", "cloud", "river", "tree", "sky", "earth", "void", "desert"],
+	"natureNoun":["ocean", "mountains", "forest", "cloud", "river", "trees", "sky", "earth", "void", "desert"],
 	"concreteNoun":["#animal#", "#natureNoun#"],
 	"verb":["#transitiveEmotion#", "#react#"],
 	"never":["never", "never again", "hardly ever", "barely", "almost always", "always", "probably never", "even"],
