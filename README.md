@@ -1,15 +1,25 @@
 # Dream-Recipes
 (NLP) Bot generates made-up (and potentially magical) recipes to solve any problem that the user inputs.
 
+
 To execute, make sure you have all the requirements installed:
+
 python3
+
 nltk
+
 fasttext
+
 numpy
+
 pickle
+
 json
+
 tracery
+
 pathlib
+
 
 Also be aware that this programme requires a 'model.bin' file in the 'data' directory. Please check for further instructions on how to get training data and train your model in the README.txt in the 'data' directory.
 
